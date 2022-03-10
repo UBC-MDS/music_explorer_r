@@ -17,9 +17,6 @@ The dashboard mainly contains:
 - a scatter plot between different music features (can be selected using the dropdown button by users) of songs and their popularity.
 
 - a time-series line plot that shows artists' popularity trend within the selected range and genres? Users can use the dropdown menu to select one or more artists that they are interested in. 
- 
-
-![](https://github.com/UBC-MDS/music_explorer/blob/main/img/app.gif)
 
 
 ## Usage and Installation
