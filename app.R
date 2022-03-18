@@ -12,7 +12,7 @@ app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 df <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv")
 
 genres <- c("pop","rap","rock","latin","r&b","edm")
-features <- c("danceability","energy","mode","speechiness","acousticness","liveness","valence","loudness")
+features <- c("danceability","energy","speechiness","acousticness","liveness","valence","loudness")
 
 
 app$layout(
@@ -167,7 +167,7 @@ app$callback(
             geom_bar(alpha = 0.6) +
             xlab("Music Genres") +
             ylab("Number of Song Records") +
-            ggthemes::scale_fill_tableau() +
+            #ggthemes::scale_fill_tableau() +
             theme_bw()
         p <- p + guides(fill=guide_legend(title="Music Genre"))
         ggplotly(p)
@@ -199,7 +199,7 @@ app$callback(
                                         color = `Music Genres`)) +
             geom_point(alpha=0.5) +
             ylab("popularity") +
-            ggthemes::scale_fill_tableau() +
+            #ggthemes::scale_fill_tableau() +
             theme_bw() 
         p <- p + theme(legend.title=element_blank())
         ggplotly(p)
