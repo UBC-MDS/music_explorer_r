@@ -194,12 +194,16 @@ app$layout(
                                 htmlBr(),
                                 htmlBr(),
                                 htmlBr(),
-                                htmlP('Music Genre Dropdown Menu'),
-                                dccChecklist(
+                                htmlBr(),
+                                htmlBr(),
+                                htmlBr(),
+                                htmlBr(),
+                                htmlP('Select the music genre(s) that you like to explore:'),
+                                dccDropdown(
                                     id = 'genre-select',
                                     options = genres %>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
                                     value=list("rock","pop"),
-                                    labelStyle=list("display" = "block", "margin-left" = "30px")
+                                    multi = TRUE
                                 )
                                 )
                                 
