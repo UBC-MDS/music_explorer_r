@@ -4,7 +4,7 @@ Authors: Dongxiao Li, Rong Li, Zihan Zhou
 
 ## Description of App
 
-The app link can be found [here](https://musicexplore.herokuapp.com/).
+The app link can be found [here](https://musicexplorer-r.herokuapp.com/).
 
 The full proposal can be found in [our proposal file](https://github.com/UBC-MDS/music_explorer/blob/main/docs/proposal.md).
 
