@@ -261,7 +261,7 @@ app$callback(
                        color = track_artist,
             )) +
             geom_point(alpha = 0.6) +
-            ggthemes::scale_fill_tableau()+
+            #ggthemes::scale_fill_tableau()+
             geom_line(stat = 'summary', fun = 'mean')+
             geom_text(
                 data = order,
