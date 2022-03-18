@@ -8,7 +8,7 @@ library(tidyr)
 library(dplyr)
 
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
-
+app$title("Music Explorer")
 df <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv")
 
 genres <- c("pop","rap","rock","latin","r&b","edm")
