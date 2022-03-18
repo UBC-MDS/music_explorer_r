@@ -197,7 +197,7 @@ app$layout(
                                 htmlP('Music Genre Dropdown Menu'),
                                 dccChecklist(
                                     id = 'genre-select',
-                                    options = genres, #%>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
+                                    options = genres %>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
                                     value=list("rock","pop"),
                                     labelStyle=list("display" = "block", "margin-left" = "30px")
                                 )
