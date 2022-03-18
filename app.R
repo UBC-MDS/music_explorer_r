@@ -38,15 +38,134 @@ app$layout(
         #     )
         # ),#row1
         list(
-        dbcRow(
-            list(
-                dbcCard(
-                    list(h1('Spotify Music Explorer')),
-                    style= list('font-size'= "300%", 'color'='#3F69A9','text-aligh'='center')
+            dbcToast(
+                list(p(htmlA('GitHub', href='https://github.com/UBC-MDS/music_explorer_r',
+                             style=list("text-decoration" = "underline")),
+                       htmlP("The dashboard was created by Dongxiao Li, Rong Li, Zihan Zhou. It is licensed under the terms of the MIT license."),
+                       htmlA("Data", href = 'https://raw.githubusercontent.com/UBC-MDS/music_explorer/main/data/spotify_songs.csv',
+                             style =list("text-decoration" = "underline")),
+                       htmlP("The dataset was derived from the open Spotify music database."))),
+                id = "toast",
+                header = "About",
+                dismissable = TRUE,
+                is_open = FALSE,
+                style=list("position"="fixed", 
+                           "top"=75, 
+                           "right"=10, 
+                           "width"= 350, 
+                           "z-index"= "1"),
+            ),
+        
+        
+        dbcRow(list(
+            
+            htmlDiv(
+                htmlImg(src="assets/icon.png", height="60px"),
+                style =list("position" = "absolute",
+                    "top"= "10px",
+                    "left"= 0,
+                    "width"= 70 )
+            ),
+            
+            htmlDiv("Spotify Music Explorer",
+                     style= list('font-size'= "260%", 'color'="#FFF",'text-aligh'='left', 
+                         "padding"= "0",
+                         "white-space"="nowrap",
+                         "position" = "absolute",
+                         "top"= 10, 
+                         "left"= 90, 
+                         "width"=800
+                     ),),
+            
+            dbcButton(
+                "About",
+                id="toast-toggle",
+                color="#074983",
+                n_clicks=0,
+                style=list(
+                    
+                    "white-space"="nowrap",
+                    "top"= 9,
+                    "position" = "absolute",
+                    "right"="20px",
+                    'text-aligh'='center',
+                    "width"= 120
                 )
             )
+            
         ),
+        id="header",
+        className="g-0",
+        style=list(
+            "background-image"= "linear-gradient(to right, #074983,#9198e5)",
+            # "max-width"="100%",
+            "width"="100%",
+            "height"=80, 
+            "z-index"= "1"
+        )),
+        
+        
+        dbcCol(
+            dbcRow(
+                list(
+                    htmlBr(),
+                    htmlBr(),
+                    htmlBr(),
+                    htmlBr(),
+                    htmlBr(),
+                    htmlBr(),
+                    htmlP(list(
+                        "The music explorer dashboard is designed for the purpose of helping music lovers and members of Spotify music platform to explore the trends of songs and artists.",
+                        htmlBr(),
+                        htmlBr(),
+                        "Start using the dashboard by limiting the songs' popularity range and selecting the music genre you are interested in."
+                    ),
+                    style = list("font-size"=20,
+                        'color'= '#3F69A9',
+                        'font-family'= 'sans-serif',
+                        "position"="absolute",
+                        "top"=40,
+                        "left"=0,
+                        "bottom"= 0,
+                        "width"="18%",
+                        "z-index"= "1")),
+                    htmlBr()
+                    
+                ),
+            ),
+            width=2,
+            style=list(
+                "position"= "absolute",
+                "top"= 80,
+                "left"= 0,
+                "bottom"= 0,
+                "width"="100%",
+                "height"=920,
+                "padding"= "2rem 1rem"
+                # "background-image"= "url(/assets/background.jpg)",
+                # "background-color"= "#E4EBF5",
+                # "background-blend-mode"="overlay"
+            )
+        ), 
+            
+
+            
+            
+        # list(
+        # dbcRow(
+        #     list(
+        #         dbcCard(
+        #             list(h1('Spotify Music Explorer')),
+        #             style= list('font-size'= "300%", 'color'='#3F69A9','text-aligh'='center')
+        #         )
+        #     )
+        # ),
         htmlBr(),
+        
+        
+        dbcContainer(list(
+        
+        
         dbcRow(
             list(
                 div(
@@ -58,6 +177,7 @@ app$layout(
                             dbcCardHeader(
                                 htmlLabel('What kinds of music do you like to explore?',
                                           style = list("font-size"=18, 'text_aligh'= 'left', 'color'= '#3F69A9', 'font-family'= 'sans-serif'))),
+                            htmlBr(),
                             dbcCardBody(
                                 list(
                                 htmlBr(),
@@ -81,6 +201,7 @@ app$layout(
                                     labelStyle=list("display" = "block", "margin-left" = "30px")
                                 )
                                 )
+                                
                             )
                         )
                     )
@@ -109,51 +230,68 @@ app$layout(
             list(
                 div(
                     style = list(width = '50%'),
-                dbcCol(
-                    list(
-                        dbcCardHeader(htmlLabel("What's the relationship between songs' features and the popularity?",
-                                                style = list("font-size"=18, 'text_aligh'= 'left', 'color'= '#3F69A9', 'font-family'= 'sans-serif'))),
-                        dbcCardBody(
-                            list(
-                                dccDropdown(
-                                    id = 'features',
-                                    options = features %>% purrr::map(function(feature, pop) list(label = feature, value = feature)),
-                                    value="danceability",
-                                    multi=FALSE
-                                ),
-                                dbcCol(dccGraph(id = "plot-2"))
+                    dbcCol(
+                        list(
+                            dbcCardHeader(htmlLabel("What are some artists' popularity trend within the selected range?",
+                                                    style = list("font-size"=18, 'text_aligh'= 'left', 'color'= '#3F69A9', 'font-family'= 'sans-serif'))),
+                            dbcCardBody(
+                                list(
+                                    dccDropdown(
+                                        id='artist_names',
+                                        # options = genres %>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
+                                        value=list("Queen","The Cranberries", "Calvin Harris", "David Guetta"),
+                                        multi=TRUE),
+                                    dbcCol(dccGraph(id = "plot-2"))
+                                )
                             )
                         )
                     )
-                )
+
                     
                 ),
                 div(
                     style = list(width = '50%'),
-                dbcCol(
-                    list(
-                        dbcCardHeader(htmlLabel("What are some artists' popularity trend within the selected range?",
-                                                style = list("font-size"=18, 'text_aligh'= 'left', 'color'= '#3F69A9', 'font-family'= 'sans-serif'))),
-                        dbcCardBody(
-                            list(
-                                dccDropdown(
-                                    id='artist_names',
-                                    # options = genres %>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
-                                    value=list("Queen","The Cranberries", "Calvin Harris", "David Guetta"),
-                                    multi=TRUE),
-                                dbcCol(dccGraph(id = "plot-3"))
+                
+                    dbcCol(
+                        list(
+                            dbcCardHeader(htmlLabel("What's the relationship between songs' features and the popularity?",
+                                                    style = list("font-size"=18, 'text_aligh'= 'left', 'color'= '#3F69A9', 'font-family'= 'sans-serif'))),
+                            dbcCardBody(
+                                list(
+                                    dccDropdown(
+                                        id = 'features',
+                                        options = features %>% purrr::map(function(feature, pop) list(label = feature, value = feature)),
+                                        value="danceability",
+                                        multi=FALSE
+                                    ),
+                                    dbcCol(dccGraph(id = "plot-3"))
+                                )
                             )
                         )
                     )
-                )
+            
                 )
             )
         )
-    )
+        
+        
+        ),
+        style=list(
+            "position"= "absolute",
+            "left"= "17%",
+            "max-width"= "83%",
+            "top"= "90px")
+        
+        )
+    ),
+    style = list(
+        "max-width"= "100%",
+        "padding"= "0")
+    
    )
 )
 
-
+# plot 1
 app$callback(
     output('plot-bar', 'figure'),
     list(input('genre-select', 'value'),
@@ -174,8 +312,9 @@ app$callback(
     }
 )
 
+# plot3
 app$callback(
-    output('plot-2', 'figure'),
+    output('plot-3', 'figure'),
     list(input('genre-select', 'value'),
          input('pop-range','value'),
          input("features", "value")
@@ -205,7 +344,7 @@ app$callback(
         ggplotly(p)
     }
 )
-
+# plot2
 app$callback(
     output("artist_names", "options"),
     list(input('genre-select', 'value'),
@@ -226,7 +365,7 @@ app$callback(
     }
 )
 app$callback(
-    output('plot-3', 'figure'),
+    output('plot-2', 'figure'),
     list(input('genre-select', 'value'),
          input('pop-range','value'),
          input("artist_names", "value")
@@ -287,5 +426,16 @@ app$callback(
         ggplotly(p)
     }
 )
+
+app$callback(output('toast', 'is_open'),
+             list(input('toast-toggle', 'n_clicks')),
+function(n){
+    if(n){
+        TRUE
+    }else{
+        FALSE
+    }
+    
+})
 
 app$run_server(host = '0.0.0.0')
