@@ -6,10 +6,11 @@ library(ggplot2)
 library(plotly)
 library(tidyr)
 library(dplyr)
+library(readr)
 
 app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 app$title("Music Explorer")
-df <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv")
+df <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv")
 
 genres <- c("pop","rap","rock","latin","r&b","edm")
 features <- c("danceability","energy","mode","speechiness","acousticness","liveness","valence","loudness")
@@ -193,12 +194,16 @@ app$layout(
                                 htmlBr(),
                                 htmlBr(),
                                 htmlBr(),
-                                htmlP('Music Genre Dropdown Menu'),
-                                dccChecklist(
+                                htmlBr(),
+                                htmlBr(),
+                                htmlBr(),
+                                htmlBr(),
+                                htmlP('Select the music genre(s) that you like to explore:'),
+                                dccDropdown(
                                     id = 'genre-select',
-                                    options = genres, #%>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
+                                    options = genres %>% purrr::map(function(genre, pop) list(label = genre, value = genre)),
                                     value=list("rock","pop"),
-                                    labelStyle=list("display" = "block", "margin-left" = "30px")
+                                    multi = TRUE
                                 )
                                 )
                                 
@@ -305,7 +310,7 @@ app$callback(
             geom_bar(alpha = 0.6) +
             xlab("Music Genres") +
             ylab("Number of Song Records") +
-            ggthemes::scale_fill_tableau() +
+            #ggthemes::scale_fill_tableau() +
             theme_bw()
         p <- p + guides(fill=guide_legend(title="Music Genre"))
         ggplotly(p)
@@ -338,7 +343,7 @@ app$callback(
                                         color = `Music Genres`)) +
             geom_point(alpha=0.5) +
             ylab("popularity") +
-            ggthemes::scale_fill_tableau() +
+            #ggthemes::scale_fill_tableau() +
             theme_bw() 
         p <- p + theme(legend.title=element_blank())
         ggplotly(p)
@@ -400,7 +405,7 @@ app$callback(
                        color = track_artist,
             )) +
             geom_point(alpha = 0.6) +
-            ggthemes::scale_fill_tableau()+
+            #ggthemes::scale_fill_tableau()+
             geom_line(stat = 'summary', fun = 'mean')+
             geom_text(
                 data = order,
