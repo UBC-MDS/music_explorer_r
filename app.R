@@ -59,13 +59,13 @@ app$layout(
         
         dbcRow(list(
             
-            # htmlDiv(
-            #     htmlImg(src="assets/icon.png", height="60px"),
-            #     style =list("position" = "absolute",
-            #         "top"= "10px",
-            #         "left"= 0,
-            #         "width"= 70 )
-            # ),
+            htmlDiv(
+                htmlImg(src="assets/icon.png", height="60px"),
+                style =list("position" = "absolute",
+                    "top"= "10px",
+                    "left"= 0,
+                    "width"= 70 )
+            ),
             
             htmlDiv("Spotify Music Explorer",
                      style= list('font-size'= "260%", 'color'="#FFF",'text-aligh'='left', 
