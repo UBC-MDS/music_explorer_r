@@ -9,16 +9,18 @@
 
 ### Differences between DashPy and DashR
 
-- Although we used different coding language in creating DashPy and DashR app, we were able to deliver the same visualization and functionality across. Both app have a user-friendly interface and are both launched on Heroku, which is convenient to access.
+- Although we used different coding language in creating DashPy and DashR app, we were able to deliver the same visualization and functionality across. Both app have a user-friendly interface and are both launched on Heroku, which is convenient to access. 
+- The only slight difference is in terms of loading speed, where we were able to add improvements for DashPy only.
 
 ### Improvements based on feedback
 
 - Based on the feedback we received, we added the pickle file and dcc loading page in order to improve the loading speed of our dashboard and the overall user experience. We have also tried to implement data server, but we struggled to make it work with the docker we have added. 
-- We updated and modified the stle in the about section to improve the layout of the dashboard. Additionally, based on the peer review feedback, we added a picture background to our dashboard and adjusted the font, which significantly improves the aesthetic feature of our dashboard.
+- We updated and modified the style in the about section to improve the layout of the dashboard. Additionally, based on the peer review feedback, we added a picture background to our dashboard and adjusted the font, which significantly improves the aesthetic feature of our dashboard.
 - Based on the feedback, we have also added a guide instruction in our dashboard to make it more user friendly especially for users that lack experience in data analysis. 
 
 ### Limitations and future improvements
 
+- Due to time limitation, we were only able to finish the speed improvement and loading block in DashPy and not DashR, which we can add in the future.
 - In one of the peer review comments that we received, they have suggested that we could add a tab feature to improve navigation of the dashboard. We are yet to resolve this suggestion because currently if we add the tab feature, each tab would make the graphs disproportionally large and hard to interact with. In the future, as we add more graphs and interactive components, the tab feature can then be better implemented.
 - We sometimes experience connection issues with Heroku, which we have checked with the professor. It appears that sometimes when connection with Heroku is off, we are not able to open our app via website link. We have yet to solve the glitch with further discussion with the professor. 
 - For future development, we will aim to add some more illustrations and features that enable users to explore more components of music and the relationship between components and popularity. Ideally, some of these additional features will be more advanced graphs. 
